@@ -1,0 +1,49 @@
+So a few things have come up with the server/clinet interaction and we'll have ot discuss that more in detail together.
+
+I don't think we can have a single server have three sockets to just run concurrently. We either have to make a single server with three threads for each socket, which will be very complicated in my view, or have three different servers for each thing nad concurrently run those form a threaded main program. Since each socket will deal with very differnet thigns I decided to go for the three different servers approach and finished a short but working moveServer. Before I go into what the server does I will put in the design for the whole program the way I see it currently. My code does not have any specs or comments included but it is pretty simple and you guys should be able ot get it. I will provide some explanation in a second.
+
+Very short design:
+Bot:
+- a server for the movement commands
+- a server for the sesnor data
+- a server for images
+- a main program that sets up each server, each with its own port and socket, using threads - a thread per server
+Client:
+- a client that has three threads each with a socket with a different port
+- all operations happen at the same time
+
+An alternataive design could be having three clients for each thing and a main program to run them at the same time (the gui perhaps - does not seem impossible). In fact now that I wrote this i like this idea better.
+
+I would suggest we look carefully at threads and mutex and whatnot and discuss this. It seems to be important towards design.
+
+So what have I done:
+
+The server I have made called moveServer uses echoClinet (a working version of it). You start the server on the robot and connect with echolient to the robot. THe commands follow the funcitonality spec we had. Typing f0.4 in the client will move hte robot forward 40 cenitmeters. r50 will try to turn it 50 degrees to the right (the surface affects how successful the turning is but it works). The other two commands work the same way as expected. There is no stop command currently but that shouldn't be a problem. 
+
+Sometimes the echo client cannot connect to the server for quite a while. THe way to go then is to recompile and try again and again. Eventually it will connect. I have no idea why it does that. Retrying continously time after time does not solve the problem at all though. YOu have to wait a while perhaps start he server over again. Most of the time connecting is flawless though.
+
+Compiling: 
+This actually is so complicated that I wrote a little script to keep myself from fucking things up completely. The script is included nad should be put into the brainstem direcotry where you run it.
+
+Currently you assume htat everything is to deal with the moveServer executable. This is how the whole thing would work without my script.
+
+To compile you have to put hte source code (moveServer.c and .h) into brainstem/aGarcia/cs23Garcia.
+Then go to the make script make_cs23_debug.sh in brainstem/aGarcia. THis script runs the makefile makecs23.Linux
+To be able to compile the code oyu have to open makecs23.Linux and chnage main.c under SOURCE to  your source code (moveServer.c)
+The running make_cs23_debug.sh will produce the executable cs23Garcia at brainstem/aDebug/aUnix/ARM/cs23Garcia
+you have to rename that (otherwise you will overwrite hte sanity check binary in the root directory of the robot) to moveServer
+the scp that into /root at the robot
+Then you can run the server on the robot with runit moveServer
+
+The script deos a lot of this work for you. Just put the source file moveServer.c and .h in brainstem/aGarcia/cs23Garcia
+Chnage the makecs23.Linux file in brainstem/aGarcia to use moveSolver.c isntead of main.c
+Then run compil4BOT.sh in brainstem. It will compile, rename and scp the new file into root (make sure the robot is ssh-able)
+YOu'll be prompted to put the password in for the scp command. Make sure to run the script from the terminal so that you know if it fails (it fails if any of the steps fail)
+then you are ready to run the server on hte robot
+
+Once oyu got the server just echoCLient on it and start sending commands. Once oyu are connected the thing workds beatifully nad all motion is implemented.
+
+So a lot of reading but hopefully useful. YOu can use the ssame script for other executables, just change the names in the script and the makefile
+So play with it. I drained a whole battery debugging, but it is currently getting charged.
+
+sasho

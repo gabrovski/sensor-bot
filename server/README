@@ -1,0 +1,27 @@
+The server works as we discussed. if you sendb0.3 it moves 30com backwards. there's also a stop function implemented but it does not work for forward and back for osme reason. works fine for turning. I have reasons to believe that this is the API's fault.
+
+This server is single threaded. We'll have ot make it multithreaded where each threaded will resemble the present server. We'll need three sockets and three ports, defined and made global probably but not necessarily. Should not be too bad to do.
+
+Compiling: 
+This actually is so complicated that I wrote a little script to keep myself from fucking things up completely. The script is included nad should be put into the brainstem direcotry where you run it.
+
+Currently you assume htat everything is to deal with the moveServer executable. This is how the whole thing would work without my script.
+
+To compile you have to put hte source code (moveServer.c and .h) into brainstem/aGarcia/cs23Garcia.
+Then go to the make script make_cs23_debug.sh in brainstem/aGarcia. THis script runs the makefile makecs23.Linux
+To be able to compile the code oyu have to open makecs23.Linux and chnage main.c under SOURCE to  your source code (moveServer.c)
+The running make_cs23_debug.sh will produce the executable cs23Garcia at brainstem/aDebug/aUnix/ARM/cs23Garcia
+you have to rename that (otherwise you will overwrite hte sanity check binary in the root directory of the robot) to moveServer
+the scp that into /root at the robot
+Then you can run the server on the robot with runit moveServer
+
+The script deos a lot of this work for you. Just put the source file moveServer.c and .h in brainstem/aGarcia/cs23Garcia
+Chnage the makecs23.Linux file in brainstem/aGarcia to use moveSolver.c isntead of main.c
+Then run compil4BOT.sh in brainstem. It will compile, rename and scp the new file into root (make sure the robot is ssh-able)
+YOu'll be prompted to put the password in for the scp command. Make sure to run the script from the terminal so that you know if it fails (it fails if any of the steps fail)
+then you are ready to run the server on hte robot
+
+So a lot of reading but hopefully useful. YOu can use the ssame script for other executables, just change the names in the script and the makefile
+So play with it. I drained a whole battery debugging, but it is currently getting charged.
+
+sasho
