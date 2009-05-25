@@ -1,3 +1,5 @@
+THe client runs currently a single thread to send the commands. It is important to note that the GUI cannot be run in a thread so don't change the way I have thing up now. Just add to it. If you make new threads make them before the run for the call to the gui.
+
 The client uses the gui I have amde. THe gui kinda sux but that's all that can be done with the tutorial they gave us. If there's no more work to be done I will look into glade and make it fancy. This works fine though. YOu need to set the distance before ruunig each command. STOP works only for turning but thats something I cant fix easily - it seems the API is fucking thigs up. Code for stupping is in the server.
 
 Currently picture is not implemented since the servere side of the robot is not sending any images. If I have time I will do that part since its not supposed ot be hard and the implement the picutre part of the gui.

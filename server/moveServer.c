@@ -101,6 +101,7 @@ void move(char *comm){
     i = GarciaTurnN((num / 180.0 * 3.14159)*(-1));
     break;
   case 's':
+    printf("%s i jsut said STOP\n", comm);
     GarciaStop();
     break;
   case 'd':

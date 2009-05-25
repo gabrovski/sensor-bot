@@ -1,4 +1,4 @@
-The server works as we discussed. if you sendb0.3 it moves 30com backwards. there's also a stop function implemented but it does not work for forward and back for osme reason. works fine for turning. I have reasons to believe that this is the API's fault.
+The server works as we discussed. if you sendb0.3 it moves 30com backwards. Stop was fixed.
 
 This server is single threaded. We'll have ot make it multithreaded where each threaded will resemble the present server. We'll need three sockets and three ports, defined and made global probably but not necessarily. Should not be too bad to do.
 
